@@ -1,4 +1,4 @@
---Data exploration
+
 
 SELECT * 
 FROM kickstarter..kickstarter_projects;
@@ -10,7 +10,7 @@ FROM kickstarter..kickstarter_projects;
 
 --How many countries are in the dataset?
 
-SELECT COUNT(DISTINCT Country)
+SELECT COUNT(DISTINCT Country) AS distinct_countries
 FROM kickstarter..kickstarter_projects;
 
 --Unique countries in the dataset
@@ -45,7 +45,7 @@ WHERE State = 'Successful';
 --What project with a goal over $1000 USD had the biggest Goal completion percentage? 
 --How much money was pledged?
 
-SELECT Name, Category, Goal, Pledged, SUM(Pledged/Goal)*100 AS goal_completion_percentage
+SELECT TOP 1 Name, Category, Goal, Pledged, SUM(Pledged/Goal)*100 AS goal_completion_percentage
 FROM kickstarter..kickstarter_projects
 WHERE Goal > 1000
 GROUP BY Name, Category, Goal, Pledged, Launched
@@ -60,4 +60,10 @@ WHERE State = 'Successful'
 GROUP BY Category, Launched;
 
 
+--Successful projects by country
+
+SELECT DISTINCT(Country), Category
+FROM kickstarter..kickstarter_projects
+WHERE State = 'Successful'
+ORDER BY Country;
 
